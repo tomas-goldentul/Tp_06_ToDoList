@@ -1,18 +1,15 @@
 using Newtonsoft.Json;
-
-public static class Objetos{
-
-
-public static string ListToString<T>(List<T> lista)
+public static class Objeto
 {
-return JsonConvert.SerializeObject(lista);
-}
-public static List<T>? StringToList<T>(string json)
-{
-if (string.IsNullOrEmpty(json))
-return default;
+    public static string ObjectToString<T>(T? obj)
+    {
+        return JsonConvert.SerializeObject(obj);
 
-else
-return JsonConvert.DeserializeObject<List<T>>(json);
-}
+    }
+    public static T? StringToObject<T>(string txt)
+    {
+        if (string.IsNullOrEmpty(txt)) return default;
+        else
+            return JsonConvert.DeserializeObject<T>(txt);
+    }
 }

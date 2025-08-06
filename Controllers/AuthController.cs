@@ -17,10 +17,34 @@ public class AuthController : Controller
     {
         return View();
     }
-    public IActionResult verificarUsuario(string UsuarioIngresado, int PasswordIngresada){
+    public IActionResult verificarUsuario(string UsuarioIngresado, int PasswordIngresada)
+    {
         Usuario usuario = BD.VerificarCuenta(UsuarioIngresado, PasswordIngresada);
-        if (usuario != null){
-            
+        if (usuario != null)
+        {
+            HttpContext.Session.SetString("usuario", Objeto.ObjectToString(usuario));
+            return RedirectToAction("Logged", "Home");
+        }
+        else
+        {
+            ViewBag.Error = "Usuario o contraseña incorrectos";
+            return RedirectToAction("Index");
         }
     }
+    public IActionResult Registrarse(string NombreUsuarioNuevo, string PasswordNuevo)
+    {
+        int sePudo = BD.CrearUsuario(NombreUsuarioNuevo, PasswordNuevo);
+        if (sePudo == 1)
+        {
+            return RedirectToAction("Logged", "Home");
+        }
+        else
+        {
+            ViewBag.ErrorRegistrarse = "Nombre de usuario ya existe";
+            return RedirectToAction("Index");
+
+        }
+        return View();
+    }
+
 }

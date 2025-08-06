@@ -17,4 +17,12 @@ public class HomeController : Controller
     {
         return View();
     }
+      public IActionResult Logged()
+    {
+        if(HttpContext.Session.GetString("usuario") != null){
+            Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario "));
+            ViewBag.NombreUsuario = usuario.NombreUsuario;
+        }
+        return View();
+    }
 }

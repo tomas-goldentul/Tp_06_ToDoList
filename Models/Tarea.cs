@@ -1,22 +1,12 @@
 public class Tarea{
-    public int Clave{get;set;}
+    public int ID{get;set;}
     public string Descripcion{get;set;}
-    public bool Eliminado{get;set;}
-    public Usuario UsuarioDueño{get;set;}
-    public List<Usuario> UsuarioCompartido{get;set;}
-    public Tarea (int clave, string Descripcion, bool Eliminado, Usuario UsuarioDueño, List<Usuario> UsuarioCompartido){
-        this.Clave = clave;
+    public bool Eliminada{get;set;}
+    public bool Finalizada{get;set;}
+    public Tarea (int ID, string Descripcion, bool Eliminada, bool Finalizada){
+        this.ID = ID;
         this.Descripcion = Descripcion;
-        this.Eliminado = Eliminado;
-        this.UsuarioDueño = UsuarioDueño;
-        this.UsuarioCompartido = UsuarioCompartido;
-    }
-    public bool VerificarTarea (Usuario NombreUsuario){
-        if(NombreUsuario == UsuarioDueño || UsuarioCompartido.Contains(NombreUsuario)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        this.Eliminada = Eliminada;
+        this.Finalizada = Finalizada;
     }
 }
