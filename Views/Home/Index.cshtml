@@ -5,4 +5,12 @@
 <div>
     <h1>Index</h1>
     <p>Bienvenidos al sitio web de NombreProyecto</p>
+<section>
+<form action = '@Url.Action("verificarUsuario", "AuthController")' method =  "POST" enctype = "multipart/form-data">
+<input type ="text" name = "UsuarioIngresado"/>
+<input type ="password" name = "PasswordIngresada"/>
+<input type ="submit" value = "Guardar"/>
+</form>
+</section>
+
 </div>

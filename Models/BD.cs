@@ -19,8 +19,8 @@ public class BD
     {
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM Tareas inner join TareasXUsuarios on ID = IDTarea where IDUsuario = @PID";
-            Tareas = connection.Query<Tarea>(query, new{PID = usuario.ID}).ToList();
+            string query = "SELECT * FROM Tareas INNER JOIN TareasXUsuarios on ID = IDTarea WHERE IDUsuario = @UID";
+            Tareas = connection.Query<Tarea>(query, new { UID = usuario.ID }).ToList();
         }
         return Tareas;
     }
@@ -42,7 +42,55 @@ public class BD
         string query = "INSERT INTO Usuarios (NombreUsuario, Password) VALUES (@pNombre, @pPassword)";
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            registrosAfectados = connection.Execute(query, new{pNombre = nombreUsuarioNuevo, pPassword = passwordnuevo});
+            registrosAfectados = connection.Execute(query, new { pNombre = nombreUsuarioNuevo, pPassword = passwordnuevo });
+        }
+        return registrosAfectados;
+    }
+    public static bool EsDueño(Tarea tarea, Usuario usuario)
+    {
+        TareaXUsuario registrosAfectados;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM TareasXUsuarios where @UID = IDUsuario and @TID = IDTarea and EsDueño is true";
+            registrosAfectados = connection.Query(query, new { UID = usuario.ID, TID = tarea.ID });
+        }
+        if (registrosAfectados != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static int EditarTarea(Tarea tarea, Usuario usuario, string descripcion){
+        int registrosAfectados = 0;
+        if(EsDueño(tarea, usuario)){
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+            string query = "UPDATE TAREAS SET Descripcion = @TDesc where ID = @TID";
+            registrosAfectados = connection.Execute(query, new { TID = tarea.ID, TDesc = descripcion});
+            }
+        }
+        return registrosAfectados;
+    }
+    public static int EliminarTarea(Tarea tarea)
+    {
+        int registrosAfectados = 0;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "UPDATE TAREAS SET Eliminada = 1 where ID = @pID";
+            registrosAfectados = connection.Execute(query, new { pID = tarea.ID });
+        }
+        return registrosAfectados;
+    }
+    public static int CrearTareas(string descripcion)
+    {
+        int registrosAfectados = 0;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "INSERT INTO Tareas (Descripcion, Eliminada, Finalizada) VALUES (@pDescripcion, @pEliminada, @pFinalizada)";
+            registrosAfectados = connection.Execute(query, new { pDescripcion = descripcion, pEliminada = 0, pFinalizada = 0 });
         }
         return registrosAfectados;
     }
