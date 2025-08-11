@@ -20,12 +20,10 @@ public class HomeController : Controller
       public IActionResult Logged()
     {
         List<Tarea>listaTareas = new List<Tarea>();
-        if(HttpContext.Session.GetString("usuario") != null){
-            Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario "));
-            listaTareas = BD.ObtenerTareas(usuario);
-            ViewBag.NombreUsuario = usuario.NombreUsuario;
-            ViewBag.ListaTareas = listaTareas;
-        }
+        Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
+        listaTareas = BD.ObtenerTareas(usuario);
+        ViewBag.NombreUsuario = usuario.NombreUsuario;
+        ViewBag.ListaTareas = listaTareas;
         return View();
     }
 }

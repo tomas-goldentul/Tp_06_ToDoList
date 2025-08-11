@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "sblLFxDfohtmtTtYbUp1uOUJNoiItUSKKmENlsW/ZwU=",
+  "Hash": "67tNTBwk6gkCvErt9Bjo6Cs0ROAMHV1jpovCzMZAA/k=",
   "Source": "tp_06",
   "BasePath": "_content/tp_06",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "tp_06\\wwwroot",
       "Source": "tp_06",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\css\\site.css",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\favicon.ico",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\js\\site.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "tp_06",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\49319223\\Downloads\\Tp_06_ToDoList\\Tp_06_ToDoList\\wwwroot\\",
       "BasePath": "_content/tp_06",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",

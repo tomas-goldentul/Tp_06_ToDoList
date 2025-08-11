@@ -17,7 +17,7 @@ public class AuthController : Controller
     {
         return View();
     }
-    public IActionResult verificarUsuario(string UsuarioIngresado, int PasswordIngresada)
+    public IActionResult verificarUsuario(string UsuarioIngresado, string PasswordIngresada)
     {
         Usuario usuario = BD.VerificarCuenta(UsuarioIngresado, PasswordIngresada);
         if (usuario != null)
@@ -28,7 +28,7 @@ public class AuthController : Controller
         else
         {
             ViewBag.Error = "Usuario o contraseña incorrectos";
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
     public IActionResult Registrarse(string NombreUsuarioNuevo, string PasswordNuevo)
@@ -44,7 +44,5 @@ public class AuthController : Controller
             return RedirectToAction("Index");
 
         }
-        return View();
     }
-
 }

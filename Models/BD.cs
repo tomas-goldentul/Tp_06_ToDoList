@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Dapper;
-System.Data;
+using System.Data;
 public class BD
 {
     private static string _connectionString = @"Server=localhost; DataBase=TP06_Goldentul_Gartenkrot; Integrated Security=True; TrustServerCertificate=True;";
@@ -44,7 +44,7 @@ public class BD
         {
             string storedProcedure = "CrearUsuario";
             registrosAfectados = connection.Execute
-            (storedProcedure,new { NombreUsuario = nombreUsuarioNuevo, Password = passwordNuevo },
+            (storedProcedure,new { NombreUsuario = nombreUsuarioNuevo, Password = passwordnuevo },
                 commandType: CommandType.StoredProcedure
             );
         }
@@ -57,7 +57,7 @@ public class BD
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT * FROM TareasXUsuarios where @UID = IDUsuario and @TID = IDTarea and EsDueño is true";
-            registrosAfectados = connection.Query(query, new { UID = usuario.ID, TID = tarea.ID });
+            registrosAfectados = connection.QueryFirstOrDefault(query, new { UID = usuario.ID, TID = tarea.ID });
         }
         if (registrosAfectados != null)
         {
