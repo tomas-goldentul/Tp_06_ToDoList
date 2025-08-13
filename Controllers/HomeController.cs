@@ -15,15 +15,24 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        BD.ObtenerUsuarios();
         return View();
     }
       public IActionResult Logged()
     {
+        
         List<Tarea>listaTareas = new List<Tarea>();
         Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
+        if (usuario != null){
         listaTareas = BD.ObtenerTareas(usuario);
         ViewBag.NombreUsuario = usuario.NombreUsuario;
         ViewBag.ListaTareas = listaTareas;
+        }
         return View();
     }
+   public IActionResult CrearTarea(string Descripcion){
+    Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
+    int IDUsuario = usuario.IDUsuario;
+    BD.CrearTareas(Descripcion, IDUsuario);
+   }
 }

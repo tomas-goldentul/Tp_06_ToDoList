@@ -1,6 +1,10 @@
 <h1>Bienvenido, @ViewBag.NombreUsuario</h1>
+@if(ViewBag.listaTareas == null){
+    <p>No hay tareas</p>
+}
+else{
 @foreach(Tarea tarea in ViewBag.listaTareas){
     <p class = "columna1">@tarea.Descripcion</p>
     <p class = "columna2">@tarea.Eliminada</p>
     <p class = "columna3">@tarea.Finalizada</p>
-}
+}}

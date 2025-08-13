@@ -31,11 +31,21 @@ public class AuthController : Controller
             return RedirectToAction("Index", "Home");
         }
     }
+    [HttpGet]
+    public IActionResult Registrarse()
+    {
+        return View();
+    }
+
+    [HttpPost]
     public IActionResult Registrarse(string NombreUsuarioNuevo, string PasswordNuevo)
     {
         int sePudo = BD.CrearUsuario(NombreUsuarioNuevo, PasswordNuevo);
         if (sePudo == 1)
         {
+            Usuario usuario = BD.VerificarCuenta(NombreUsuarioNuevo, PasswordNuevo);
+            HttpContext.Session.SetString("usuario", Objeto.ObjectToString(usuario));
+            ViewBag.NombreUsuario = usuario.NombreUsuario;
             return RedirectToAction("Logged", "Home");
         }
         else

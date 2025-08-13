@@ -18,10 +18,12 @@ public class BD
     }
     public static List<Tarea> ObtenerTareas(Usuario usuario)
     {
+        if (usuario != null){
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "SELECT * FROM Tareas INNER JOIN TareasXUsuarios on ID = IDTarea WHERE IDUsuario = @UID";
             Tareas = connection.Query<Tarea>(query, new { UID = usuario.ID }).ToList();
+        }
         }
         return Tareas;
     }
@@ -33,6 +35,7 @@ public class BD
             if (UsuarioIngresado == usu.NombreUsuario && PasswordIngresada == usu.Password)
             {
                 UsuarioEncontrado = usu;
+                break;
             }
         }
         return UsuarioEncontrado;
@@ -91,13 +94,13 @@ public class BD
         }
         return registrosAfectados;
     }
-    public static int CrearTareas(string descripcion)
+    public static int CrearTareas(string descripcion, int IDUsuario)
     {
         int registrosAfectados = 0;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
             string query = "INSERT INTO Tareas (Descripcion, Eliminada, Finalizada) VALUES (@pDescripcion, @pEliminada, @pFinalizada)";
-            registrosAfectados = connection.Execute(query, new { pDescripcion = descripcion, pEliminada = 0, pFinalizada = 0 });
+            registrosAfectados = connection.Execute(query, new { pDescripcion = descripcion, pEliminada = 0, pFinalizada = 0 , pIDUsuario = IDUsuario});
         }
         return registrosAfectados;
     }

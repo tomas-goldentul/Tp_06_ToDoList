@@ -9,4 +9,5 @@ public class Tarea{
         this.Eliminada = Eliminada;
         this.Finalizada = Finalizada;
     }
+    public Tarea(){}
 }
