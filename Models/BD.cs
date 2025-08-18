@@ -3,7 +3,7 @@ using Dapper;
 using System.Data;
 public class BD
 {
-    private static string _connectionString = @"Server=LENOVOIDEAPAD\SQLEXPRESS; DataBase=TP06_Goldentul_Gartenkrot; Integrated Security=True; TrustServerCertificate=True;";
+    private static string _connectionString = @"Server=localhost; DataBase=TP06_Goldentul_Gartenkrot; Integrated Security=True; TrustServerCertificate=True;";
     public static List<Usuario> Usuarios = new List<Usuario>();
     public static List<Tarea> Tareas = new List<Tarea>();
     public static List<Usuario> ObtenerUsuarios()
