@@ -3,7 +3,7 @@ using Dapper;
 using System.Data;
 public class BD
 {
-    private static string _connectionString = @"Server=localhost; DataBase=TP06_Goldentul_Gartenkrot; Integrated Security=True; TrustServerCertificate=True;";
+    private static string _connectionString = @"Server=LENOVOIDEAPAD\SQLEXPRESS; DataBase=TP06_Goldentul_Gartenkrot; Integrated Security=True; TrustServerCertificate=True;";
     public static List<Usuario> Usuarios = new List<Usuario>();
     public static List<Tarea> Tareas = new List<Tarea>();
     public static List<Usuario> ObtenerUsuarios()
@@ -152,12 +152,13 @@ public static int FinalizarTarea(int IDTarea, bool Finalizada)
 }
 
     public static Tarea ObtenerTareaPorID(int tareaID)
-{
-    using (SqlConnection connection = new SqlConnection(_connectionString))
     {
-        string query = "SELECT * FROM Tareas WHERE ID = @ID";
-        return connection.QueryFirstOrDefault<Tarea>(query, new { ID = tareaID });
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM Tareas WHERE ID = @ID";
+            return connection.QueryFirstOrDefault<Tarea>(query, new { ID = tareaID });
+        }
     }
-}
+
 
 }

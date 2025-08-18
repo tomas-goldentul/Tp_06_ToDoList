@@ -68,12 +68,10 @@ public class HomeController : Controller
         TempData["Mensaje"] = "Tarea procesada correctamente.";
         return RedirectToAction("Logged");
     }
- 
 [HttpPost]
-public IActionResult FinalizarTarea(int ID, bool tareaFinalizada)
+public IActionResult FinalizarTarea(int ID)
 {
-    BD.FinalizarTarea(ID, tareaFinalizada);
-    
+    BD.FinalizarTarea(ID, true); 
     return RedirectToAction("Logged");
 }
 

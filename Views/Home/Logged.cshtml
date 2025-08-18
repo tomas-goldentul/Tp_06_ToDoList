@@ -5,22 +5,31 @@
 else{
  @foreach (Tarea tarea in ViewBag.ListaTareas)
 {
-    <p class="columna1">@tarea.Descripcion</p>
-
-    <form method="post" action='@Url.Action("FinalizarTarea", "Home")'>
-        
-        <input type="hidden" name="ID" value="@tarea.ID" />
-
-        
-        <input type="checkbox" name="tareaFinalizada" value="true" 
-               @(tarea.Finalizada ? "checked" : "") /> 
-        <label for="tareaFinalizada">Finalizar tarea</label><br>
-         <input type="checkbox" name="tareaEliminada" value="true" 
-           @(tarea.Eliminada ? "checked" : "") />
-    <label for="tareaEliminada">Eliminar tarea</label><br>
-
-        <input type="submit" value="Enviar">
-    </form>
+    if (tarea.Eliminada != true) // o tarea.Activa == true
+        {
+            <div style="margin-bottom:10px;">
+                <form method="post" action='@Url.Action("ModificarDescripcion", "Home")' style="display:inline;">
+                    <input type="hidden" name="ID" value="@tarea.ID" />
+                    <input type="text" name="NuevaDescripcion" value="@tarea.Descripcion" @(tarea.Finalizada ? "readonly" : "") />
+                    <input type="submit" value="Modificar" @(tarea.Finalizada ? "disabled" : "") />
+                </form>
+                @if (tarea.Finalizada)
+                {
+                    <span style="color: green;">(Finalizada)</span>
+                }
+                <form method="post" action='@Url.Action("EliminarTarea", "Home")' style="display:inline;">
+                    <input type="hidden" name="ID" value="@tarea.ID" />
+                    <input type="submit" value="Eliminar"  />
+                </form>
+                @if (!tarea.Finalizada)
+                {
+                    <form method="post" action='@Url.Action("FinalizarTarea", "Home")' style="display:inline;">
+                        <input type="hidden" name="ID" value="@tarea.ID" />
+                        <input type="submit" value="Finalizar" />
+                    </form>
+                }
+            </div>
+        }
 }
 }
 <form action = '@Url.Action("CrearTarea", "Home")' method =  "POST" enctype = "multipart/form-data">
