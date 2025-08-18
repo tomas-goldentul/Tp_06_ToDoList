@@ -16,14 +16,28 @@ public class BD
         }
         return Usuarios;
     }
+  public static Usuario ObtenerUsuarioPorNombre(string NombreUsuario)
+{
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @UNombre";
+        
+        // Assuming 'Usuario' is your model class
+        var usuario = connection.QueryFirstOrDefault<Usuario>(query, new { UNombre = NombreUsuario });
+
+        return usuario;
+    }
+}
+
     public static List<Tarea> ObtenerTareas(Usuario usuario)
     {
-        if (usuario != null){
-        using (SqlConnection connection = new SqlConnection(_connectionString))
+        if (usuario != null)
         {
-            string query = "SELECT * FROM Tareas INNER JOIN TareasXUsuarios on ID = IDTarea WHERE IDUsuario = @UID";
-            Tareas = connection.Query<Tarea>(query, new { UID = usuario.ID }).ToList();
-        }
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Tareas INNER JOIN TareasXUsuarios on ID = IDTarea WHERE IDUsuario = @UID";
+                Tareas = connection.Query<Tarea>(query, new { UID = usuario.ID }).ToList();
+            }
         }
         return Tareas;
     }
@@ -47,12 +61,28 @@ public class BD
         {
             string storedProcedure = "CrearUsuario";
             registrosAfectados = connection.Execute
-            (storedProcedure,new { NombreUsuario = nombreUsuarioNuevo, Password = passwordnuevo },
+            (storedProcedure, new { NombreUsuario = nombreUsuarioNuevo, Password = passwordnuevo },
                 commandType: CommandType.StoredProcedure
             );
         }
         return registrosAfectados;
 
+    }
+    public static bool CompartirTarea(Usuario usuario, Tarea tarea){
+        TareaXUsuario registrosAfectados;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "INSERT INTO TareasXUsuarios (IDUsuario, IDTarea, EsDueño) VALUES (@UID , @TID , 0)";
+            registrosAfectados = connection.QueryFirstOrDefault(query, new { UID = usuario.ID, TID = tarea.ID });
+        }
+        if (registrosAfectados != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public static bool EsDueño(Tarea tarea, Usuario usuario)
     {
@@ -84,13 +114,13 @@ public class BD
         }
         return registrosAfectados;
     }
-    public static int EliminarTarea(Tarea tarea)
+    public static int EliminarTarea(int ID)
     {
         int registrosAfectados = 0;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "UPDATE TAREAS SET Eliminada = 1 where ID = @pID";
-            registrosAfectados = connection.Execute(query, new { pID = tarea.ID });
+            string query = "UPDATE TAREAS SET Eliminada = 1 WHERE ID = @pID";
+            registrosAfectados = connection.Execute(query, new { pID = ID });
         }
         return registrosAfectados;
     }
@@ -99,19 +129,35 @@ public class BD
         int registrosAfectados = 0;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "INSERT INTO Tareas (Descripcion, Eliminada, Finalizada) VALUES (@pDescripcion, @pEliminada, @pFinalizada)";
-            registrosAfectados = connection.Execute(query, new { pDescripcion = descripcion, pEliminada = 0, pFinalizada = 0 , pIDUsuario = IDUsuario});
+            string storedProcedure = "CrearTarea";  
+            registrosAfectados = connection.Execute
+            (
+                storedProcedure,
+                new { pDescripcion = descripcion, pEliminada = false, pFinalizada = false, IdUsuario = IDUsuario }, 
+                commandType: CommandType.StoredProcedure
+            );
         }
         return registrosAfectados;
     }
-    public static int FinalizarTarea(int IDTarea, bool Finalizada)
+
+public static int FinalizarTarea(int IDTarea, bool Finalizada)
+{
+    int registrosAfectados = 0;
+    using (SqlConnection connection = new SqlConnection(_connectionString))
     {
-        int registrosAfectados = 0;
-        using (SqlConnection connection = new SqlConnection(_connectionString))
-        {
-            string query = "UPDATE TAREAS SET Finalizada = @pFinalizada where ID = @pID";
-            registrosAfectados = connection.Execute(query, new { pID = IDTarea , pFinalizada = Finalizada});
-        }   
-        return registrosAfectados;
+        string query = "UPDATE TAREAS SET Finalizada = @pFinalizada WHERE ID = @pID";
+        registrosAfectados = connection.Execute(query, new { pID = IDTarea, pFinalizada = Finalizada });
     }
+    return registrosAfectados;
+}
+
+    public static Tarea ObtenerTareaPorID(int tareaID)
+{
+    using (SqlConnection connection = new SqlConnection(_connectionString))
+    {
+        string query = "SELECT * FROM Tareas WHERE ID = @ID";
+        return connection.QueryFirstOrDefault<Tarea>(query, new { ID = tareaID });
+    }
+}
+
 }

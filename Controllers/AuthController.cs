@@ -50,9 +50,20 @@ public class AuthController : Controller
         }
         else
         {
-            ViewBag.ErrorRegistrarse = "Nombre de usuario ya existe";
-            return RedirectToAction("Index");
+
+            ViewBag.Error = "Usuario o contraseña incorrectos";
+            return View("Index");
 
         }
+    }
+    public IActionResult Error()
+    {
+        ViewBag.Mensaje = "Usuario o contraseña erroneos";
+        return View();
+    }
+    public IActionResult CompartirTarea(Tarea tarea, string UsuarioCompartir){
+        Usuario usuario = BD.ObtenerUsuarioPorNombre(UsuarioCompartir);
+        ViewBag.Compartido = BD.CompartirTarea(usuario, tarea);
+    return RedirectToAction("Logged", "Home"); 
     }
 }

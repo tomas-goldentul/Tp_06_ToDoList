@@ -3,8 +3,27 @@
     <p>No hay tareas</p>
 }
 else{
-@foreach(Tarea tarea in ViewBag.listaTareas){
-    <p class = "columna1">@tarea.Descripcion</p>
-    <p class = "columna2">@tarea.Eliminada</p>
-    <p class = "columna3">@tarea.Finalizada</p>
-}}
+ @foreach (Tarea tarea in ViewBag.ListaTareas)
+{
+    <p class="columna1">@tarea.Descripcion</p>
+
+    <form method="post" action='@Url.Action("FinalizarTarea", "Home")'>
+        
+        <input type="hidden" name="ID" value="@tarea.ID" />
+
+        
+        <input type="checkbox" name="tareaFinalizada" value="true" 
+               @(tarea.Finalizada ? "checked" : "") /> 
+        <label for="tareaFinalizada">Finalizar tarea</label><br>
+         <input type="checkbox" name="tareaEliminada" value="true" 
+           @(tarea.Eliminada ? "checked" : "") />
+    <label for="tareaEliminada">Eliminar tarea</label><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+}
+}
+<form action = '@Url.Action("CrearTarea", "Home")' method =  "POST" enctype = "multipart/form-data">
+        <input type ="text" name = "Descripcion"/>
+        <input type ="submit" value = "Guardar"/>
+    </form>
