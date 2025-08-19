@@ -1,7 +1,7 @@
   <div>
         <form action = '@Url.Action("Registrarse", "Auth")' method =  "POST" enctype = "multipart/form-data">
         <input type ="text" name = "NombreUsuarioNuevo" placeholder="Nombre de usuario"/>
-        <input type ="password" name = "PasswordNuevo" "Contraseña"/>
+        <input type ="password" name = "PasswordNuevo" placeholder="Contraseña"/>
         <input type ="submit" value = "Crear Usuario"/>
     </form>
     <p>@ViewBag.ErrorRegistrarse</p>
