@@ -22,7 +22,6 @@ public class BD
     {
         string query = "SELECT * FROM Usuarios WHERE NombreUsuario = @UNombre";
         
-        // Assuming 'Usuario' is your model class
         var usuario = connection.QueryFirstOrDefault<Usuario>(query, new { UNombre = NombreUsuario });
 
         return usuario;
@@ -68,48 +67,42 @@ public class BD
         return registrosAfectados;
 
     }
-    public static bool CompartirTarea(Usuario usuario, Tarea tarea){
-        TareaXUsuario registrosAfectados;
+    public static bool CompartirTarea(Usuario usuario, Tarea tarea)
+    {
+        int registrosAfectados = 0;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "INSERT INTO TareasXUsuarios (IDUsuario, IDTarea, EsDueño) VALUES (@UID , @TID , 0)";
-            registrosAfectados = connection.QueryFirstOrDefault(query, new { UID = usuario.ID, TID = tarea.ID });
+            string query = "INSERT INTO TareasXUsuarios (IDUsuario, IDTarea, EsDueño) VALUES (@UID, @TID, 0)";
+            registrosAfectados = connection.Execute(query, new { UID = usuario.ID, TID = tarea.ID });
         }
-        if (registrosAfectados != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return registrosAfectados > 0;
     }
     public static bool EsDueño(Tarea tarea, Usuario usuario)
     {
         TareaXUsuario registrosAfectados;
         using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            string query = "SELECT * FROM TareasXUsuarios where @UID = IDUsuario and @TID = IDTarea and EsDueño is true";
-            registrosAfectados = connection.QueryFirstOrDefault(query, new { UID = usuario.ID, TID = tarea.ID });
+            string query = "SELECT * FROM TareasXUsuarios WHERE IDUsuario = @UID AND IDTarea = @TID AND EsDueño = 1";
+            registrosAfectados = connection.QueryFirstOrDefault<TareaXUsuario>(query, new { UID = usuario.ID, TID = tarea.ID });
         }
-        if (registrosAfectados != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return registrosAfectados != null;
     }
     public static int EditarTarea(Tarea tarea, Usuario usuario, string descripcion)
     {
         int registrosAfectados = 0;
+        
+        if (string.IsNullOrWhiteSpace(descripcion))
+        {
+            return 0;
+        }
+        
+        
         if (EsDueño(tarea, usuario))
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "UPDATE TAREAS SET Descripcion = @TDesc where ID = @TID";
-                registrosAfectados = connection.Execute(query, new { TID = tarea.ID, TDesc = descripcion });
+                string query = "UPDATE TAREAS SET Descripcion = @TDesc WHERE ID = @TID";
+                registrosAfectados = connection.Execute(query, new { TID = tarea.ID, TDesc = descripcion.Trim() });
             }
         }
         return registrosAfectados;
@@ -160,5 +153,14 @@ public static int FinalizarTarea(int IDTarea, bool Finalizada)
         }
     }
 
-
+    public static bool TareaCompartidaConUsuario(Tarea tarea, Usuario usuario)
+    {
+        TareaXUsuario registro;
+        using (SqlConnection connection = new SqlConnection(_connectionString))
+        {
+            string query = "SELECT * FROM TareasXUsuarios WHERE IDUsuario = @UID AND IDTarea = @TID";
+            registro = connection.QueryFirstOrDefault<TareaXUsuario>(query, new { UID = usuario.ID, TID = tarea.ID });
+        }
+        return registro != null;
+    }
 }

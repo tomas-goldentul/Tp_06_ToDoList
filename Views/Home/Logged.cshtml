@@ -1,38 +1,90 @@
-<h1>Bienvenido, @ViewBag.NombreUsuario</h1>
-@if(ViewBag.listaTareas == null){
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h1>Bienvenido, @ViewBag.NombreUsuario</h1>
+    <form method="post" action='@Url.Action("Logout", "Home")' style="display: inline;">
+        <input type="submit" value="Cerrar Sesión" style="background-color: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;" />
+    </form>
+</div>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div style="color: green; margin-bottom: 10px;">
+        @TempData["Mensaje"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div style="color: red; margin-bottom: 10px;">
+        @TempData["Error"]
+    </div>
+}
+
+@if(ViewBag.ListaTareas == null){
     <p>No hay tareas</p>
 }
 else{
- @foreach (Tarea tarea in ViewBag.ListaTareas)
-{
-    if (tarea.Eliminada != true) // o tarea.Activa == true
+    @foreach (Tarea tarea in ViewBag.ListaTareas)
+    {
+        if (tarea.Eliminada != true)
         {
+            bool esDueño = BD.EsDueño(tarea, ViewBag.UsuarioActual);
+            
             <div style="margin-bottom:10px;">
-                <form method="post" action='@Url.Action("ModificarDescripcion", "Home")' style="display:inline;">
-                    <input type="hidden" name="ID" value="@tarea.ID" />
-                    <input type="text" name="NuevaDescripcion" value="@tarea.Descripcion" @(tarea.Finalizada ? "readonly" : "") />
-                    <input type="submit" value="Modificar" @(tarea.Finalizada ? "disabled" : "") />
-                </form>
+                @if (esDueño)
+                {
+                    <form method="post" action='@Url.Action("ModificarDescripcion", "Home")' style="display:inline;">
+                        <input type="hidden" name="ID" value="@tarea.ID" />
+                        <input type="text" name="NuevaDescripcion" value="@tarea.Descripcion" @(tarea.Finalizada ? "readonly" : "") />
+                        <input type="submit" value="Modificar" @(tarea.Finalizada ? "disabled" : "") style="background-color: #007bff; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;" />
+                    </form>
+                }
+                else
+                {
+                    <span style="font-weight: bold; color: #495057;">@tarea.Descripcion</span>
+                }
+                
                 @if (tarea.Finalizada)
                 {
                     <span style="color: green;">(Finalizada)</span>
                 }
-                <form method="post" action='@Url.Action("EliminarTarea", "Home")' style="display:inline;">
-                    <input type="hidden" name="ID" value="@tarea.ID" />
-                    <input type="submit" value="Eliminar"  />
-                </form>
-                @if (!tarea.Finalizada)
+                
+                @if (esDueño)
+                {
+                    <form method="post" action='@Url.Action("EliminarTarea", "Home")' style="display:inline;">
+                        <input type="hidden" name="ID" value="@tarea.ID" />
+                        <input type="submit" value="Eliminar" style="background-color: #dc3545; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;" />
+                    </form>
+                }
+                else
+                {
+                    <span style="color: #6c757d; font-size: 0.9em;">(Compartida)</span>
+                }
+                
+                @if (!tarea.Finalizada && esDueño)
                 {
                     <form method="post" action='@Url.Action("FinalizarTarea", "Home")' style="display:inline;">
                         <input type="hidden" name="ID" value="@tarea.ID" />
-                        <input type="submit" value="Finalizar" />
+                        <input type="submit" value="Finalizar" style="background-color: #28a745; color: white; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;" />
+                    </form>
+                }
+                
+                @if (esDueño)
+                {
+                    <form method="post" action='@Url.Action("CompartirTarea", "Auth")' style="display:inline;">
+                        <input type="hidden" name="tarea.ID" value="@tarea.ID" />
+                        <input type="hidden" name="tarea.Descripcion" value="@tarea.Descripcion" />
+                        <input type="hidden" name="tarea.Eliminada" value="@tarea.Eliminada" />
+                        <input type="hidden" name="tarea.Finalizada" value="@tarea.Finalizada" />
+                        <input type="text" name="UsuarioCompartir" placeholder="Usuario a compartir" style="width: 150px;" />
+                        <input type="submit" value="Compartir" style="background-color: #ffc107; color: #212529; border: none; padding: 4px 8px; border-radius: 3px; cursor: pointer;" />
                     </form>
                 }
             </div>
         }
+    }
 }
-}
-<form action = '@Url.Action("CrearTarea", "Home")' method =  "POST" enctype = "multipart/form-data">
-        <input type ="text" name = "Descripcion"/>
-        <input type ="submit" value = "Guardar"/>
-    </form>
+
+<form action='@Url.Action("CrearTarea", "Home")' method="POST" enctype="multipart/form-data">
+    <input type="text" name="Descripcion" placeholder="Nueva tarea..." />
+    <input type="submit" value="Crear Tarea" style="background-color: #17a2b8; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;" />
+</form>

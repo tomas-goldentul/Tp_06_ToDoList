@@ -61,9 +61,58 @@ public class AuthController : Controller
         ViewBag.Mensaje = "Usuario o contraseña erroneos";
         return View();
     }
-    public IActionResult CompartirTarea(Tarea tarea, string UsuarioCompartir){
-        Usuario usuario = BD.ObtenerUsuarioPorNombre(UsuarioCompartir);
-        ViewBag.Compartido = BD.CompartirTarea(usuario, tarea);
-    return RedirectToAction("Logged", "Home"); 
+    [HttpPost]
+    public IActionResult CompartirTarea(Tarea tarea, string UsuarioCompartir)
+    {
+        Usuario usuarioActual = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
+        
+        if (usuarioActual == null)
+        {
+            TempData["Error"] = "Usuario no autenticado.";
+            return RedirectToAction("Index", "Home");
+        }
+        
+        if (string.IsNullOrWhiteSpace(UsuarioCompartir))
+        {
+            TempData["Error"] = "Debe especificar un usuario para compartir.";
+            return RedirectToAction("Logged", "Home");
+        }
+        
+        if (usuarioActual.NombreUsuario.ToLower() == UsuarioCompartir.ToLower())
+        {
+            TempData["Error"] = "No puede compartir una tarea consigo mismo.";
+            return RedirectToAction("Logged", "Home");
+        }
+        
+        if (!BD.EsDueño(tarea, usuarioActual))
+        {
+            TempData["Error"] = "Solo puede compartir tareas de las que sea dueño.";
+            return RedirectToAction("Logged", "Home");
+        }
+        
+        Usuario usuarioCompartir = BD.ObtenerUsuarioPorNombre(UsuarioCompartir);
+        if (usuarioCompartir == null)
+        {
+            TempData["Error"] = "Usuario no encontrado.";
+            return RedirectToAction("Logged", "Home");
+        }
+        
+        if (BD.TareaCompartidaConUsuario(tarea, usuarioCompartir))
+        {
+            TempData["Error"] = "La tarea ya está compartida con este usuario.";
+            return RedirectToAction("Logged", "Home");
+        }
+        
+        bool compartido = BD.CompartirTarea(usuarioCompartir, tarea);
+        if (compartido)
+        {
+            TempData["Mensaje"] = $"Tarea compartida exitosamente con {UsuarioCompartir}.";
+        }
+        else
+        {
+            TempData["Error"] = "No se pudo compartir la tarea.";
+        }
+        
+        return RedirectToAction("Logged", "Home");
     }
 }

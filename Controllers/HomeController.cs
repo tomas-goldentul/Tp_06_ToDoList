@@ -20,15 +20,19 @@ public class HomeController : Controller
     }
     public IActionResult Logged()
     {
-
-        List<Tarea> listaTareas = new List<Tarea>();
         Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
-        if (usuario != null)
+        
+        if (usuario == null)
         {
-            listaTareas = BD.ObtenerTareas(usuario);
-            ViewBag.NombreUsuario = usuario.NombreUsuario;
-            ViewBag.ListaTareas = listaTareas;
+            TempData["Error"] = "Debe iniciar sesión para acceder a esta página.";
+            return RedirectToAction("Index", "Home");
         }
+
+        List<Tarea> listaTareas = BD.ObtenerTareas(usuario);
+        ViewBag.NombreUsuario = usuario.NombreUsuario;
+        ViewBag.ListaTareas = listaTareas;
+        ViewBag.UsuarioActual = usuario;
+        
         return View();
     }
     public IActionResult CrearTarea(string Descripcion)
@@ -41,11 +45,41 @@ public class HomeController : Controller
     }
     public IActionResult EliminarTarea(int ID)
     {
-        BD.EliminarTarea(ID);
+        Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
+        
+        if (usuario == null)
+        {
+            TempData["Error"] = "Usuario no autenticado.";
+            return RedirectToAction("Index", "Home");
+        }
+        
+        Tarea tarea = BD.ObtenerTareaPorID(ID);
+        
+        if (tarea == null)
+        {
+            TempData["Error"] = "Tarea no encontrada.";
+            return RedirectToAction("Logged");
+        }
+        
+        if (!BD.EsDueño(tarea, usuario))
+        {
+            TempData["Error"] = "Solo puede eliminar tareas de las que sea dueño.";
+            return RedirectToAction("Logged");
+        }
+        
+        int resultado = BD.EliminarTarea(ID);
+        if (resultado > 0)
+        {
+            TempData["Mensaje"] = "Tarea eliminada exitosamente.";
+        }
+        else
+        {
+            TempData["Error"] = "No se pudo eliminar la tarea.";
+        }
+        
         return RedirectToAction("Logged");
     }
     [HttpPost]
-  [HttpPost]
     public IActionResult ProcesarTarea(int ID, bool tareaFinalizada, bool tareaEliminada)
     {
         Tarea tarea = BD.ObtenerTareaPorID(ID);
@@ -75,7 +109,48 @@ public IActionResult FinalizarTarea(int ID)
     return RedirectToAction("Logged");
 }
 
+[HttpPost]
+public IActionResult ModificarDescripcion(int ID, string NuevaDescripcion)
+{
+    Usuario usuario = Objeto.StringToObject<Usuario>(HttpContext.Session.GetString("usuario"));
+    
+    if (usuario == null)
+    {
+        TempData["Error"] = "Usuario no autenticado.";
+        return RedirectToAction("Index", "Home");
+    }
+    
+    Tarea tarea = BD.ObtenerTareaPorID(ID);
+    
+    if (tarea == null)
+    {
+        TempData["Error"] = "Tarea no encontrada.";
+        return RedirectToAction("Logged");
+    }
+    
+    if (string.IsNullOrWhiteSpace(NuevaDescripcion))
+    {
+        TempData["Error"] = "La descripción no puede estar vacía.";
+        return RedirectToAction("Logged");
+    }
+    
+    int resultado = BD.EditarTarea(tarea, usuario, NuevaDescripcion);
+    if (resultado > 0)
+    {
+        TempData["Mensaje"] = "Tarea modificada exitosamente.";
+    }
+    else
+    {
+        TempData["Error"] = "No se pudo modificar la tarea. Verifique que sea el dueño de la tarea.";
+    }
+    
+    return RedirectToAction("Logged");
+}
 
-
-
+public IActionResult Logout()
+{
+    HttpContext.Session.Clear();
+    TempData["Mensaje"] = "Sesión cerrada exitosamente.";
+    return RedirectToAction("Index", "Home");
+}
 }

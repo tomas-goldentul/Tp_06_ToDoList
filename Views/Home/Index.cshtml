@@ -3,6 +3,19 @@
 }
 
 <section>
+    @if (TempData["Mensaje"] != null)
+    {
+        <div style="color: green; margin-bottom: 10px; padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px;">
+            @TempData["Mensaje"]
+        </div>
+    }
+    
+    @if (TempData["Error"] != null)
+    {
+        <div style="color: #721c24; margin-bottom: 10px; padding: 10px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;">
+            @TempData["Error"]
+        </div>
+    }
     <div>
         <h1>Index</h1>
         <p>Bienvenidos al sitio web de NombreProyecto</p>

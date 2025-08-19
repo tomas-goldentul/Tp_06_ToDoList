@@ -7,4 +7,6 @@ public class TareaXUsuario{
         this.IDUsuario = IDUsuario;
         this.EsDueño = EsDueño;
     }
-    }
+    
+    public TareaXUsuario(){}
+}

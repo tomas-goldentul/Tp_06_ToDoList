@@ -7,4 +7,6 @@ public class Usuario{
         this.NombreUsuario = NombreUsuario;
         this.Password = Password;
     }
+    
+    public Usuario(){}
 }
